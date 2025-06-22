@@ -1,0 +1,9 @@
+#!/usr/bin/env php
+<?php
+
+require 'vendor/autoload.php';
+
+$console = new \SigmaPHP\Core\Console\ConsoleManager();
+
+// Run
+$console->execute($argv); 
