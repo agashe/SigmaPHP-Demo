@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="shortcut icon" href="/assets/images/SigmaPHP-Logo.png" type="image/x-icon">
-    <title>SigmaPHP - Framework</title>    
-</head>
-<body>
-    {% show_block 'content' %}
 
-    <script src="/assets/js/main.js"></script>
+{% include 'layout.head' %}
+{% include 'layout.header' %}
+
+<body class="d-flex flex-column min-vh-100">
+
+    <main class="flex-grow-1 bg-light">
+        <div class="container my-5">
+            {% show_block 'content' %}
+        </div>
+    </main>
+
+    {% include 'layout.footer' %}
+    {% include 'layout.foot' %}
 </body>
+
 </html>

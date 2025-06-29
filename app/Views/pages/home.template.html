@@ -1,0 +1,15 @@
+{% extend 'layout/base' %}
+
+{% block 'title' %}Home{% end_block %}
+
+{% block 'content' %}
+
+<div class="row g-4">
+    {% for $i in 6 %}
+        {% include 'components.post_card' %}
+    {% end_for %}
+</div>
+
+{% include 'components.pagination' %}
+
+{% end_block %}

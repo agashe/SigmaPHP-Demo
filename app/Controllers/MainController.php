@@ -9,12 +9,12 @@ use SigmaPHP\Core\Http\Response;
 class MainController extends BaseController
 {
     /**
-     * Welcome page.
+     * Homepage.
      * 
      * @return Response
      */
     public function index(Request $request)
     {
-        return $this->render('app', ['version' => version()]);
+        return $this->render('pages.home');
     }
 }
