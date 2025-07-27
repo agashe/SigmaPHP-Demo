@@ -5,6 +5,7 @@ namespace App\Controllers;
 use SigmaPHP\Core\Controllers\BaseController;
 use SigmaPHP\Core\Http\Request;
 use SigmaPHP\Core\Http\Response;
+use App\Models\Post;
 
 class MainController extends BaseController
 {
@@ -15,6 +16,9 @@ class MainController extends BaseController
      */
     public function index(Request $request)
     {
-        return $this->render('pages.home');
+        $postModel = new Post();
+        $posts = $postModel->all();
+        
+        return $this->render('pages.home', compact('posts'));
     }
 }
