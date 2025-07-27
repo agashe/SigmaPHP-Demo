@@ -6,10 +6,24 @@
 
 <div class="row g-4">
     {% for $post in $posts %}
-        {% include 'components.post_card' %}
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ $post->title }}</h5>
+                <p class="card-text">{{ $post->summary }}</p>
+                <p class="card-text"><small class="text-muted">Date: {{ $post->created_at }} | Comments: 15 | Author:
+                        Alice Wonderland</small></p>
+                <a href="{{ url('posts.show', ['id' => $post->id]) }}" class="btn btn-primary btn-sm">Read More</a>
+            </div>
+        </div>
+    </div>
     {% end_for %}
 </div>
 
-{% include 'components.pagination' %}
+<div class="row mt-5">
+    <div class="col-md-12 text-center">
+        <a href="{{ url('posts.index') }}" class="btn btn-primary">Show More</a>
+    </div>
+</div>
 
 {% end_block %}

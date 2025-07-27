@@ -5,7 +5,7 @@ use App\Controllers\PostsController;
 
 return [
     [
-        'name' => 'welcome',
+        'name' => 'home',
         'path' => '/',
         'method' => 'get',
         'controller' => MainController::class,

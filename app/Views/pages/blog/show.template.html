@@ -1,15 +1,80 @@
 {% extend 'layout/base' %}
 
-{% block 'title' %}Home{% end_block %}
+{% block 'title' %}{{ $post->title }}{% end_block %}
 
 {% block 'content' %}
 
-<div class="row g-4">
-    {% for $i in 6 %}
-        {% include 'components.post_card' %}
-    {% end_for %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <!-- Post Card -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h2 class="card-title">{{ $post->title }}</h2>
+                <p class="card-text">{{ $post->summary }}</p>
+                <hr>
+                <div class="d-flex justify-content-between text-muted">
+                    <small>Date: {{ $post->created_at }}</small>
+                    <small>Author: {{ 'me' }}</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comments Section -->
+        <div class="card shadow-sm mb-3">
+            <div class="card-header bg-white">
+                <h5 class="mb-0">Comments (<span id="commentsCount">{{ 5 }}</span>)</h5>
+            </div>
+            <div class="card-body" id="commentsSection">
+
+                <!-- No comments -->
+                {% if (true) %}
+                <p class="text-muted mb-0">No comments yet. Be the first to comment!</p>
+                {% else %}
+                <!-- List of comments -->
+                <ul class="list-group list-group-flush mb-3">
+                    {% for $i in 4 %}
+                    <li class="list-group-item">
+                        <div class="fw-bold">{{ 'Anonymous' }}</div>
+                        <div>{{ 'test' }}</div>
+                        <div class="text-muted small">{{ 'hello' }}</div>
+                    </li>
+                    {% end_for %}
+                </ul>
+                <!-- Load more comments button -->
+                {% if (true) %}
+                <div class="d-grid">
+                    <button class="btn btn-outline-secondary btn-sm" id="loadMoreBtn">Load More Comments</button>
+                </div>
+                {% end_if %}
+                {% end_if %}
+            </div>
+
+            <!-- Register to comment (if guest) -->
+            {% if (true) %}
+            <div class="card-footer bg-white border-0">
+                <div class="alert alert-info mb-0">
+                    <a href="#" class="alert-link">Register</a> or <a href="#"
+                        class="alert-link">log in</a> to comment.
+                </div>
+            </div>
+            {% end_if %}
+
+            <!-- Add new comment form (if logged in) -->
+            {% if (true) %}
+            <div class="card-footer bg-white border-0">
+                <form id="commentForm" action="#" method="POST">
+
+                    <div class="mb-2">
+                        <textarea name="content" class="form-control" rows="2" placeholder="Add a comment..."
+                            required></textarea>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-sm">Submit Comment</button>
+                    </div>
+                </form>
+            </div>
+            {% end_if %}
+        </div>
+    </div>
 </div>
-
-{% include 'components.pagination' %}
-
 {% end_block %}
