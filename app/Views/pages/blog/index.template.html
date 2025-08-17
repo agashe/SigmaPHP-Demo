@@ -13,7 +13,9 @@
                 <p>{{ $post->summary }}</p>
                 <p><small class="text-muted">Date: {{ $post->created_at }} | Comments: 15 | Author:
                         Alice Wonderland</small></p>
-                <a href="{{ url('posts.show', ['id' => $post->id]) }}" class="btn btn-primary btn-sm">Read More</a>
+                <a href="{{ url('posts.show', ['id' => $post->id]) }}" class="btn btn-primary btn-sm">
+                    <i class="bi bi-arrow-right me-2"></i>Read More
+                </a>
             </div>
         </div>
     </div>

@@ -31,4 +31,14 @@ class MainController extends BaseController
     {
         return $this->render('pages.about');
     }
+    
+    /**
+     * Contact Us.
+     * 
+     * @return Response
+     */
+    public function contact(Request $request)
+    {
+        return $this->render('pages.contact');
+    }
 }
