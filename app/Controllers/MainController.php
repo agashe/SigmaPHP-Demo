@@ -21,4 +21,14 @@ class MainController extends BaseController
         
         return $this->render('pages.home', compact('posts'));
     }
+
+    /**
+     * About.
+     * 
+     * @return Response
+     */
+    public function about(Request $request)
+    {
+        return $this->render('pages.about');
+    }
 }

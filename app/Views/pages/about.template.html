@@ -1,0 +1,35 @@
+{% extend 'layout/base' %}
+
+{% block 'title' %}About{% end_block %}
+
+{% block 'content' %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-body p-5">
+                    <h2 class="card-title text-center mb-4 text-primary fw-bold">About SigmaPHP Demo</h2>
+                    <p class="card-text text-muted fs-6">
+                        This project serves as a comprehensive showcase designed to help you
+                        explore and understand all the features and capabilities of the SigmaPHP
+                        framework. Whether you're new to SigmaPHP or looking to dive deeper
+                        into its functionalities, this demo provides practical examples and use
+                        cases for various aspects of the framework.
+                    </p>
+                    <hr class="my-4">
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="{{ $githubLink }}" class="btn btn-primary px-4" target="_blank">
+                            <i class="bi bi-github me-2"></i>GitHub
+                        </a>
+                        <a href="{{ $docsLink }}" class="btn btn-outline-primary px-4" target="_blank">
+                            <i class="bi bi-file-earmark-code me-2"></i>Docs
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% end_block %}

@@ -12,6 +12,27 @@ return [
         'action' => 'index',
     ],
     [
+        'name' => 'about',
+        'path' => '/about',
+        'method' => 'get',
+        'controller' => MainController::class,
+        'action' => 'about',
+    ],
+    [
+        'name' => 'contact',
+        'path' => '/contact',
+        'method' => 'get',
+        'controller' => MainController::class,
+        'action' => 'contact',
+    ],
+    [
+        'name' => 'contact.submit',
+        'path' => '/contact',
+        'method' => 'post',
+        'controller' => MainController::class,
+        'action' => 'contact',
+    ],
+    [
         'group' => 'posts',
         'prefix' => '/blog',
         'routes' => [
