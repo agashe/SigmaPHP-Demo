@@ -10,10 +10,15 @@ use App\Models\Post;
 class PostsController extends BaseController
 {
     /**
+     * @var const int PER_PAGE
+     */
+    private const PER_PAGE = 5;
+
+    /**
      * @var Post $postModel
      */
     private Post $postModel;
-
+    
     /**
      * PostsController Constructor
      * 
@@ -27,13 +32,23 @@ class PostsController extends BaseController
      * Homepage.
      * 
      * @param Request $request
+     * @param int $page
      * @return Response
      */
-    public function index(Request $request)
+    public function index(Request $request, $page = 1)
     {
-        $posts = $this->postModel->all();
-
-        return $this->render('pages.blog.index', compact('posts'));
+        $posts = array_slice(
+            $this->postModel->all(),
+            ($page - 1) * (int) self::PER_PAGE, 
+            (int) self::PER_PAGE
+        );
+        
+        $pagesCount = ceil($this->postModel->count() / (int) self::PER_PAGE);
+    
+        return $this->render(
+            'pages.blog.index', 
+            compact('posts', 'page', 'pagesCount')
+        );
     }
 
     /**

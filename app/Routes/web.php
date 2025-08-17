@@ -17,14 +17,14 @@ return [
         'routes' => [
             [
                 'name' => 'index',
-                'path' => '/',
+                'path' => '/{page?}',
                 'method' => 'get',
                 'controller' => PostsController::class,
                 'action' => 'index'
             ],
             [
                 'name' => 'show',
-                'path' => '/{id}',
+                'path' => '/s/{id}',
                 'method' => 'get',
                 'controller' => PostsController::class,
                 'action' => 'show'

@@ -20,6 +20,8 @@
     {% end_for %}
 </div>
 
-{% include 'components.pagination' %}
+{% if ($pagesCount > 1) %}
+    {% include 'components.pagination' %}
+{% end_if %}
 
 {% end_block %}

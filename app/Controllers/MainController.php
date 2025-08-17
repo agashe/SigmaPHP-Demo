@@ -17,7 +17,7 @@ class MainController extends BaseController
     public function index(Request $request)
     {
         $postModel = new Post();
-        $posts = $postModel->all();
+        $posts = array_slice($postModel->all(), 0, 6);
         
         return $this->render('pages.home', compact('posts'));
     }
