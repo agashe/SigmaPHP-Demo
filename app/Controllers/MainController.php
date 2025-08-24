@@ -6,6 +6,7 @@ use SigmaPHP\Core\Controllers\BaseController;
 use SigmaPHP\Core\Http\Request;
 use SigmaPHP\Core\Http\Response;
 use App\Models\Post;
+use App\Models\Message;
 
 class MainController extends BaseController
 {
@@ -39,6 +40,71 @@ class MainController extends BaseController
      */
     public function contact(Request $request)
     {
-        return $this->render('pages.contact');
+        $type = '';
+        $message = '';
+
+        if ($this->session()->get('success')) {
+            $type = 'success';
+            $message = $this->session()->get('success');
+            $this->session()->delete('success');
+        }
+        else if ($this->session()->get('error')) {
+            $type = 'danger';
+            $message = $this->session()->get('error');
+            $this->session()->delete('error');
+        }
+        
+        return $this->render('pages.contact', compact('type', 'message'));
+    }
+
+    /**
+     * Submit Contact Us.
+     * 
+     * @return Response
+     */
+    public function submitContact(Request $request)
+    {
+        $name = trim((string) $request->post('name'));
+        $email = trim((string) $request->post('email'));
+        $body = trim((string) $request->post('body'));
+
+        $error = '';
+
+        if (empty($name)) {
+            $error = 'Your name is required.';
+        }
+        else if (empty($email)) {
+            $error = 'Your email address is required.';
+        }
+        else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $error = 'Please enter a valid email address.';
+        }
+        else if (empty($body)) {
+            $error = 'Your message is required.';
+        }
+
+        if (!empty($error)) {
+            // add flash message
+            $this->session()->set('error', $error);
+            
+            // redirect back
+            header('Location: ' . url('contact'));
+            exit();
+        }
+
+        $newMessage = new Message();
+
+        $newMessage->name = $name;
+        $newMessage->email = $email;
+        $newMessage->body = $body;
+
+        $newMessage->save();
+
+        // add flash message
+        $this->session()->set('success', 'Your message were sent successfully');
+        
+        // redirect back
+        header('Location: ' . url('contact'));
+        exit();
     }
 }

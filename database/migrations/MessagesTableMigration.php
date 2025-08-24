@@ -2,7 +2,7 @@
 
 use SigmaPHP\DB\Migrations\Migration;
 
-class MessagesTableMigrationMigration extends Migration
+class MessagesTableMigration extends Migration
 {
     /**
      * @return void
@@ -16,8 +16,6 @@ class MessagesTableMigrationMigration extends Migration
                 ['name' => 'name', 'type' => 'varchar', 'size' => 100],
                 ['name' => 'email', 'type' => 'varchar', 'size' => 100],
                 ['name' => 'body', 'type' => 'text'],
-                ['name' => 'user_id', 'type' => 'bigint'],
-                ['name' => 'soft_delete'],
                 ['name' => 'timestamps']
             ]
         );

@@ -9,7 +9,12 @@
         <div class="card shadow-sm">
             <div class="card-body">
                 <h2 class="card-title text-center mb-4 text-primary fw-bold">Contact Us</h2>
-                <form action="#" method="POST">
+
+                {% if ($message != '' && $type != '') %}
+                    {% include 'components.alert' %}
+                {% end_if %}
+
+                <form action="/contact" method="POST">
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="name" class="form-label">Name</label>

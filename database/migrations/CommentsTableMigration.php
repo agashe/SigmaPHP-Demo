@@ -2,7 +2,7 @@
 
 use SigmaPHP\DB\Migrations\Migration;
 
-class CommentsTableMigrationMigration extends Migration
+class CommentsTableMigration extends Migration
 {
     /**
      * @return void

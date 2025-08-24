@@ -30,7 +30,7 @@ return [
         'path' => '/contact',
         'method' => 'post',
         'controller' => MainController::class,
-        'action' => 'contact',
+        'action' => 'submitContact',
     ],
     [
         'group' => 'posts',
