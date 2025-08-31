@@ -27,3 +27,20 @@ else if (window.location.href.includes('contact')) {
 else {
     document.getElementById('home-nav').classList.add('active');
 }
+
+// search form handler
+const searchButton = document.getElementById('search-btn');
+const searchText = document.getElementById('search-text');
+
+function searchHandler() { 
+    window.location.href = '/blog/search/' + searchText.value;
+}
+
+searchButton.addEventListener('click', searchHandler);
+
+searchText.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        searchHandler();
+    }
+});

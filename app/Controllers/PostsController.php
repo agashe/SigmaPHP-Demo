@@ -52,6 +52,37 @@ class PostsController extends BaseController
     }
 
     /**
+     * Search.
+     * 
+     * @param Request $request
+     * @param string $keyword
+     * @param int $page
+     * @return Response
+     */
+    public function search(Request $request, $keyword, $page = 1)
+    {
+        $keyword = trim($keyword);
+
+        // prevent XSS
+        $keyword = htmlspecialchars($keyword, ENT_QUOTES, 'UTF-8');
+
+        $result = $this->postModel->where('title', 'like', "%$keyword%")->all();
+
+        $posts = array_slice(
+            $result,
+            ($page - 1) * (int) self::PER_PAGE, 
+            (int) self::PER_PAGE
+        );
+        
+        $pagesCount = ceil(count($result) / (int) self::PER_PAGE);
+    
+        return $this->render(
+            'pages.blog.index', 
+            compact('posts', 'page', 'pagesCount', 'keyword')
+        );
+    }
+
+    /**
      * Show a single post.
      *
      * @param Request $request

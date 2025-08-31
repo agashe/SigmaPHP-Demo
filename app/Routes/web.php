@@ -44,6 +44,13 @@ return [
                 'action' => 'index'
             ],
             [
+                'name' => 'search',
+                'path' => 'search/{keyword}/{page?}',
+                'method' => 'get',
+                'controller' => PostsController::class,
+                'action' => 'search'
+            ],
+            [
                 'name' => 'show',
                 'path' => '/s/{id}',
                 'method' => 'get',

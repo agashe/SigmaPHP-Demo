@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
     <div class="container">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{{ url('home') }}">
             <img src="/assets/images/SigmaPHP-Logo.png" alt="Logo" class="d-inline-block align-text-top me-2 logo">
             SigmaPHP Demo
         </a>
@@ -24,9 +24,9 @@
                 </li>
             </ul>
 
-            <form class="d-flex my-2 my-lg-0 mx-lg-auto order-lg-2">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-primary d-flex align-items-center" type="submit">
+            <form id="search-form" class="d-flex my-2 my-lg-0 mx-lg-auto order-lg-2">
+                <input id="search-text" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button id="search-btn" class="btn btn-outline-primary d-flex align-items-center" type="button">
                     <i class="bi bi-search me-2"></i>Search
                 </button>
             </form>
