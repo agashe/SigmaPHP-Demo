@@ -1,0 +1,37 @@
+{% extend 'layout/base' %}
+
+{% block 'title' %}Login{% end_block %}
+
+{% block 'content' %}
+
+<div class="row g-4 justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4 text-primary fw-bold">Login</h2>
+
+                {% if ($message != '' && $type != '') %}
+                    {% include 'components.alert' %}
+                {% end_if %}
+
+                <form action="/auth/login" method="POST">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% end_block %}

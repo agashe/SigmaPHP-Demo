@@ -2,6 +2,7 @@
 
 use App\Controllers\MainController;
 use App\Controllers\PostsController;
+use App\Controllers\AuthController;
 
 return [
     [
@@ -56,6 +57,40 @@ return [
                 'method' => 'get',
                 'controller' => PostsController::class,
                 'action' => 'show'
+            ],
+        ]
+    ],
+    [
+        'group' => 'auth',
+        'prefix' => '/auth',
+        'routes' => [
+            [
+                'name' => 'login',
+                'path' => '/login',
+                'method' => 'get',
+                'controller' => AuthController::class,
+                'action' => 'login',
+            ],
+            [
+                'name' => 'login.submit',
+                'path' => '/login',
+                'method' => 'post',
+                'controller' => AuthController::class,
+                'action' => 'submitLogin',
+            ],
+            [
+                'name' => 'register',
+                'path' => '/register',
+                'method' => 'get',
+                'controller' => AuthController::class,
+                'action' => 'register',
+            ],
+            [
+                'name' => 'register.submit',
+                'path' => '/register',
+                'method' => 'post',
+                'controller' => AuthController::class,
+                'action' => 'submitRegister',
             ],
         ]
     ],

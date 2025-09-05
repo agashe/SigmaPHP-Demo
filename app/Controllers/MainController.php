@@ -94,9 +94,9 @@ class MainController extends BaseController
 
         $newMessage = new Message();
 
-        $newMessage->name = $name;
-        $newMessage->email = $email;
-        $newMessage->body = $body;
+        $newMessage->name = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
+        $newMessage->email = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
+        $newMessage->body = htmlspecialchars($body, ENT_QUOTES, 'UTF-8');
 
         $newMessage->save();
 
