@@ -1,8 +1,12 @@
 <?php
 
 use App\Controllers\MainController;
-use App\Controllers\PostsController;
+use App\Controllers\PostController;
+use App\Controllers\BlogController;
 use App\Controllers\AuthController;
+use App\Controllers\UserController;
+use App\Middlewares\AuthMiddleware;
+use App\Middlewares\GuestMiddleware;
 
 return [
     [
@@ -34,28 +38,28 @@ return [
         'action' => 'submitContact',
     ],
     [
-        'group' => 'posts',
+        'group' => 'blog',
         'prefix' => '/blog',
         'routes' => [
             [
                 'name' => 'index',
                 'path' => '/{page?}',
                 'method' => 'get',
-                'controller' => PostsController::class,
+                'controller' => BlogController::class,
                 'action' => 'index'
             ],
             [
                 'name' => 'search',
                 'path' => 'search/{keyword}/{page?}',
                 'method' => 'get',
-                'controller' => PostsController::class,
+                'controller' => BlogController::class,
                 'action' => 'search'
             ],
             [
                 'name' => 'show',
                 'path' => '/s/{id}',
                 'method' => 'get',
-                'controller' => PostsController::class,
+                'controller' => BlogController::class,
                 'action' => 'show'
             ],
         ]
@@ -63,6 +67,9 @@ return [
     [
         'group' => 'auth',
         'prefix' => '/auth',
+        'middlewares' => [
+            [GuestMiddleware::class, 'handle']
+        ],
         'routes' => [
             [
                 'name' => 'login',
@@ -91,6 +98,36 @@ return [
                 'method' => 'post',
                 'controller' => AuthController::class,
                 'action' => 'submitRegister',
+            ],
+        ]
+    ],
+    [
+        'group' => 'user',
+        'prefix' => '/user',
+        'middlewares' => [
+            [AuthMiddleware::class, 'handle']
+        ],
+        'routes' => [
+            [
+                'name' => 'profile',
+                'path' => '/profile',
+                'method' => 'get',
+                'controller' => UserController::class,
+                'action' => 'show',
+            ],
+            [
+                'name' => 'profile.submit',
+                'path' => '/profile',
+                'method' => 'post',
+                'controller' => UserController::class,
+                'action' => 'update',
+            ],
+            [
+                'name' => 'logout',
+                'path' => '/logout',
+                'method' => 'get',
+                'controller' => UserController::class,
+                'action' => 'logout',
             ],
         ]
     ],

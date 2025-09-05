@@ -21,7 +21,8 @@ class AppServiceProvider implements ServiceProviderInterface
     {
         shareTemplateVariable([
             'githubLink' => 'https://github.com/agashe/SigmaPHP',
-            'docsLink' => 'https://www.sigmaphp.com/docs'
+            'docsLink' => 'https://www.sigmaphp.com/docs',
+            'isAuth' => isset($_COOKIE['is_auth']) ? '1' : '0'
         ]);
     }
 

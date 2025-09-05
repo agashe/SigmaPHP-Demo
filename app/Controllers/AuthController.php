@@ -10,6 +10,20 @@ use App\Models\User;
 class AuthController extends BaseController
 {
     /**
+     * @var User $userModel
+     */
+    private User $userModel;
+    
+    /**
+     * AuthController Constructor
+     * 
+     * @param User $userModel
+     */
+    public function __construct(User $userModel) {
+        $this->userModel = $userModel;
+    }
+
+    /**
      * Login.
      * 
      * @return Response
@@ -40,47 +54,41 @@ class AuthController extends BaseController
      */
     public function submitLogin(Request $request)
     {
-        $name = trim((string) $request->post('name'));
         $email = trim((string) $request->post('email'));
-        $body = trim((string) $request->post('body'));
+        $password = trim((string) $request->post('password'));
 
         $error = '';
 
-        if (empty($name)) {
-            $error = 'Your name is required.';
-        }
-        else if (empty($email)) {
+        if (empty($email)) {
             $error = 'Your email address is required.';
-        }
-        else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $error = 'Please enter a valid email address.';
-        }
-        else if (empty($body)) {
-            $error = 'Your message is required.';
+        } else if (empty($password)) {
+            $error = 'Your password is required.';
         }
 
         if (!empty($error)) {
-            // add flash message
             $this->session()->set('error', $error);
-            
-            // redirect back
-            header('Location: ' . url('contact'));
+            header('Location: ' . url('auth.login'));
             exit();
         }
 
-        $newMessage = new User();
+        $user = $this->userModel->where('email', 'like', "%$email%")->first();
 
-        $newMessage->name = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
-        $newMessage->email = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
-        $newMessage->body = htmlspecialchars($body, ENT_QUOTES, 'UTF-8');
+        // If a user is found, verify the password.
+        if (!empty($user) && (md5($password) === $user->password)) {
+            $this->cookie()->set('is_auth', 1, time() + 3600);
+            $this->cookie()->set('email', $email, time() + 3600);
+            $this->cookie()->set('first_name', $user->first_name, time() + 3600);
+            $this->cookie()->set('last_name', $user->last_name, time() + 3600);
 
-        $newMessage->save();
+            header('Location: ' . url('home'));
+            exit();
+        }
 
-        // add flash message
-        $this->session()->set('success', 'Your message were sent successfully');
-        
-        // redirect back
-        header('Location: ' . url('contact'));
+        // Invalid credentials.
+        $this->session()->set('error', 'Invalid username or password.');
+        header('Location: ' . url('auth.login'));
         exit();
     }
     
@@ -115,7 +123,6 @@ class AuthController extends BaseController
      */
     public function submitRegister(Request $request)
     {
-        // Extract data from the request, excluding username.
         $email = trim((string) $request->post('email'));
         $firstName = trim((string) $request->post('first_name'));
         $lastName = trim((string) $request->post('last_name'));
@@ -140,7 +147,7 @@ class AuthController extends BaseController
             $this->session()->set('error', $error);
             
             // redirect back
-            header('Location: ' . url('register'));
+            header('Location: ' . url('auth.register'));
             exit();
         }
 
@@ -156,9 +163,10 @@ class AuthController extends BaseController
         $newUser->save();
 
         // add create new cookie with an associative array
-        $this->cookie()->set('email', $email);
-        $this->cookie()->set('first_name', $firstName);
-        $this->cookie()->set('last_name', $lastName);
+        $this->cookie()->set('is_auth', 1, time() + 3600);
+        $this->cookie()->set('email', $email, time() + 3600);
+        $this->cookie()->set('first_name', $firstName, time() + 3600);
+        $this->cookie()->set('last_name', $lastName, time() + 3600);
         
         // redirect back
         header('Location: ' . url('home'));

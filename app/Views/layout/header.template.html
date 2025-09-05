@@ -14,7 +14,7 @@
                     <a class="nav-link active" href="{{ url('home') }}" id="home-nav">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('posts.index') }}" id="blog-nav">Blog</a>
+                    <a class="nav-link" href="{{ url('blog.index') }}" id="blog-nav">Blog</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('about') }}" id="about-nav">About</a>
@@ -25,15 +25,64 @@
             </ul>
 
             <form id="search-form" class="d-flex my-2 my-lg-0 mx-lg-auto order-lg-2">
-                <input id="search-text" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <input id="search-text" class="form-control me-2" type="search" placeholder="Search"
+                    aria-label="Search">
                 <button id="search-btn" class="btn btn-outline-primary d-flex align-items-center" type="button">
                     <i class="bi bi-search me-2"></i>Search
                 </button>
             </form>
 
             <div class="d-flex ms-auto my-2 my-lg-0 order-lg-3">
-                <a href="{{ url('auth.login') }}" class="btn btn-primary me-2"><i class="bi bi-person-circle me-2"></i>Login</a>
-                <a href="{{ url('auth.register') }}" class="btn btn-outline-primary"><i class="bi bi-person-plus me-2"></i>Register</a>
+                {% if ($isAuth == '1') %}
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <li class="nav-item me-lg-3 d-flex align-items-center mb-2 mb-lg-0">
+                                <button class="btn btn-outline-primary btn-create-post">
+                                    <i class="bi bi-plus-circle-fill me-2"></i>Create Post
+                                </button>
+                            </li>
+
+                            <li class="nav-item dropdown user-dropdown">
+                                <a class="nav-link dropdown-toggle user-dropdown-toggle d-flex align-items-center" href="#"
+                                    id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-person-circle fs-4 me-2"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 rounded-3 mt-2"
+                                    aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="bi bi-file-earmark-text-fill me-2"></i>My Posts
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="bi bi-person-fill me-2"></i>Profile
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ url('user.logout') }}">
+                                            <i class="bi bi-box-arrow-right me-2"></i>Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>  
+                {% else %}
+                    <a href="{{ url('auth.login') }}" class="btn btn-primary me-2"><i
+                            class="bi bi-person-circle me-2"></i>Login</a>
+                    <a href="{{ url('auth.register') }}" class="btn btn-outline-primary"><i
+                            class="bi bi-person-plus me-2"></i>Register</a>
+                {% end_if %}
             </div>
         </div>
     </div>
