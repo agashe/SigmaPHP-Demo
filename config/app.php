@@ -37,7 +37,7 @@ return [
     /**
      * Cache files path.
      */
-    'cache_path' => env('CACHE_PATH', 'storage/cache'),
+    'cache_path' => '', // env('CACHE_PATH', 'storage/cache'),
 
     /**
      * Uploaded files path.

@@ -6,6 +6,7 @@ use SigmaPHP\Core\Controllers\BaseController;
 use SigmaPHP\Core\Http\Request;
 use SigmaPHP\Core\Http\Response;
 use App\Models\User;
+use App\Services\AuthService;
 
 class AuthController extends BaseController
 {
@@ -13,14 +14,21 @@ class AuthController extends BaseController
      * @var User $userModel
      */
     private User $userModel;
+
+    /**
+     * @var AuthService $authService
+     */
+    private AuthService $authService;
     
     /**
      * AuthController Constructor
      * 
      * @param User $userModel
+     * @param AuthService $authService
      */
-    public function __construct(User $userModel) {
+    public function __construct(User $userModel, AuthService $authService) {
         $this->userModel = $userModel;
+        $this->authService = $authService;
     }
 
     /**
@@ -56,6 +64,7 @@ class AuthController extends BaseController
     {
         $email = trim((string) $request->post('email'));
         $password = trim((string) $request->post('password'));
+        $rememberMe = trim((string) $request->post('remember_me'));
 
         $error = '';
 
@@ -77,10 +86,13 @@ class AuthController extends BaseController
 
         // If a user is found, verify the password.
         if (!empty($user) && (md5($password) === $user->password)) {
-            $this->cookie()->set('is_auth', 1, time() + 3600);
-            $this->cookie()->set('email', $email, time() + 3600);
-            $this->cookie()->set('first_name', $user->first_name, time() + 3600);
-            $this->cookie()->set('last_name', $user->last_name, time() + 3600);
+            $oneDayInterval = 3600;
+            $oneWeekInterval = 604800;
+
+            $this->authService->createUserSession(
+                $user,
+                $rememberMe == 'on' ? $oneWeekInterval : $oneDayInterval
+            );
 
             header('Location: ' . url('home'));
             exit();
@@ -127,19 +139,30 @@ class AuthController extends BaseController
         $firstName = trim((string) $request->post('first_name'));
         $lastName = trim((string) $request->post('last_name'));
         $password = trim((string) $request->post('password'));
+        $confirm = trim((string) $request->post('confirm'));
 
         $error = '';
 
         if (empty($email)) {
             $error = 'Your email address is required.';
-        } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        }
+        else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $error = 'Please enter a valid email address.';
-        } else if (empty($firstName)) {
+        }
+        else if (empty($firstName)) {
             $error = 'Your first name is required.';
-        } else if (empty($lastName)) {
+        }
+        else if (empty($lastName)) {
             $error = 'Your last name is required.';
-        } else if (empty($password)) {
+        }
+        else if (empty($password)) {
             $error = 'A password is required.';
+        }
+        else if (empty($confirm)) {
+            $error = 'A confirm password is required.';
+        }
+        else if ($confirm !== $password) {
+            $error = 'The password and confirm password are not matching.';
         }
 
         if (!empty($error)) {
@@ -158,16 +181,14 @@ class AuthController extends BaseController
             ENT_QUOTES, 'UTF-8');
         $newUser->last_name = htmlspecialchars($lastName, ENT_QUOTES, 'UTF-8');
 
+        // !! The worst security option :) 
         $newUser->password = md5($password);
 
         $newUser->save();
 
-        // add create new cookie with an associative array
-        $this->cookie()->set('is_auth', 1, time() + 3600);
-        $this->cookie()->set('email', $email, time() + 3600);
-        $this->cookie()->set('first_name', $firstName, time() + 3600);
-        $this->cookie()->set('last_name', $lastName, time() + 3600);
-        
+        // create new user session (valid for one day !)
+        $this->authService->createUserSession($newUser, 3600);
+
         // redirect back
         header('Location: ' . url('home'));
         exit();

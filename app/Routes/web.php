@@ -116,7 +116,7 @@ return [
                 'action' => 'show',
             ],
             [
-                'name' => 'profile.submit',
+                'name' => 'profile.update',
                 'path' => '/profile',
                 'method' => 'post',
                 'controller' => UserController::class,

@@ -1,0 +1,62 @@
+{% extend 'layout/base' %}
+
+{% block 'title' %}Profile{% end_block %}
+
+{% block 'content' %}
+
+<div class="row g-4 justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4 text-primary fw-bold">Profile</h2>
+
+                {% if ($message != '' && $type != '') %}
+                    {% include 'components.alert' %}
+                {% end_if %}
+
+                <form action="/user/profile" method="POST">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="first_name" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" value="{{ $user->first_name }}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="last_name" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" value="{{ $user->last_name }}" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="email" value="{{ $user->email }}" disabled>
+                    </div>
+                
+                    <hr>
+
+                    <h5 class="mb-2">Change Password</h5>
+                    
+                    <div class="mb-3">
+                        <label for="old_password" class="form-label">Old Password</label>
+                        <input type="password" class="form-control" id="old_password" name="old_password">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="new_password" class="form-label">New Password</label>
+                        <input type="password" class="form-control" id="new_password" name="new_password">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="confirm" class="form-label">Confirm New Password</label>
+                        <input type="password" class="form-control" id="confirm" name="confirm">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-check-circle me-2"></i>Update
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% end_block %}
