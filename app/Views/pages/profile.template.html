@@ -1,6 +1,6 @@
 {% extend 'layout/base' %}
 
-{% block 'title' %}Profile{% end_block %}
+{% block 'title' %}My Profile{% end_block %}
 
 {% block 'content' %}
 
@@ -8,7 +8,7 @@
     <div class="col-lg-8">
         <div class="card shadow-sm">
             <div class="card-body">
-                <h2 class="card-title text-center mb-4 text-primary fw-bold">Profile</h2>
+                <h2 class="card-title text-center mb-4 text-primary fw-bold">My Profile</h2>
 
                 {% if ($message != '' && $type != '') %}
                     {% include 'components.alert' %}
@@ -37,7 +37,7 @@
                     
                     <div class="mb-3">
                         <label for="old_password" class="form-label">Old Password</label>
-                        <input type="password" class="form-control" id="old_password" name="old_password">
+                        <input type="password" class="form-control" id="old_password" name="old_password" autocomplete="new-password" value="">
                     </div>
 
                     <div class="mb-3">

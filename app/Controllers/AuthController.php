@@ -70,9 +70,11 @@ class AuthController extends BaseController
 
         if (empty($email)) {
             $error = 'Your email address is required.';
-        } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        }
+        else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $error = 'Please enter a valid email address.';
-        } else if (empty($password)) {
+        }
+        else if (empty($password)) {
             $error = 'Your password is required.';
         }
 
@@ -162,7 +164,7 @@ class AuthController extends BaseController
             $error = 'A confirm password is required.';
         }
         else if ($confirm !== $password) {
-            $error = 'The password and confirm password are not matching.';
+            $error = 'The password and confirm password do not match';
         }
 
         if (!empty($error)) {
