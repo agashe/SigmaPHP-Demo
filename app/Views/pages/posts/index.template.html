@@ -1,0 +1,36 @@
+{% extend 'layout/base' %}
+
+{% block 'title' %}My Posts{% end_block %}
+
+{% block 'content' %}
+
+<div class="row g-4">
+    {% for $post in $posts %}
+    <div class="col-md-12 col-lg-12">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ $post->title }}</h5>
+                <p>{{ $post->summary }}</p>
+                <p><small class="text-muted">Date: {{ $post->created_at }} | Comments: {{ $post->comments_count }} | Author: {{$post->author_name}}</small></p>
+                <a href="{{ url('blog.show', ['id' => $post->id]) }}" class="btn btn-primary btn-sm">
+                    <i class="bi bi-arrow-right me-2"></i>Read More
+                </a>
+                <a href="{{ url('blog.show', ['id' => $post->id]) }}" class="btn btn-warning btn-sm">
+                    <i class="bi bi-pencil me-2"></i>Edit
+                </a>
+                <form class="d-inline mx-0" action="{{ url('blog.show', ['id' => $post->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
+                    <button type="submit" class="btn btn-danger btn-sm">
+                        <i class="bi bi-trash me-2"></i>Delete
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% end_for %}
+</div>
+
+{% if ($pagesCount > 1) %}
+    {% include 'components.pagination' %}
+{% end_if %}
+
+{% end_block %}

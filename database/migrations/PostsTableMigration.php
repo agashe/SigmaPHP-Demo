@@ -17,6 +17,8 @@ class PostsTableMigration extends Migration
                 ['name' => 'summary', 'type' => 'varchar', 'size' => 200],
                 ['name' => 'body', 'type' => 'text'],
                 ['name' => 'user_id', 'type' => 'bigint'],
+                ['name' => 'author_name', 'type' => 'varchar', 'size' => 100],
+                ['name' => 'comments_count', 'type' => 'int'],
                 ['name' => 'soft_delete'],
                 ['name' => 'timestamps']
             ]

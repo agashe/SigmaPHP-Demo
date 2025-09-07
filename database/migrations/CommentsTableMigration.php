@@ -15,6 +15,7 @@ class CommentsTableMigration extends Migration
                 ['name' => 'id', 'type' => 'bigint', 'primary' => true],
                 ['name' => 'body', 'type' => 'text'],
                 ['name' => 'user_id', 'type' => 'bigint'],
+                ['name' => 'author_name', 'type' => 'varchar', 'size' => 100],
                 ['name' => 'soft_delete'],
                 ['name' => 'timestamps']
             ]

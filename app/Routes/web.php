@@ -131,4 +131,20 @@ return [
             ],
         ]
     ],
+    [
+        'group' => 'posts',
+        'prefix' => '/posts',
+        'middlewares' => [
+            [AuthMiddleware::class, 'handle']
+        ],
+        'routes' => [
+            [
+                'name' => 'index',
+                'path' => '/{page?}',
+                'method' => 'get',
+                'controller' => PostController::class,
+                'action' => 'index'
+            ],
+        ]
+    ],
 ];

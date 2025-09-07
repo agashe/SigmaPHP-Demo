@@ -120,6 +120,22 @@ class UserController extends BaseController
 
         $user->save();
 
+        // since the author's name is fixed on the posts and comments table
+        // we have to update them manually :)
+        $statement = container('db')->prepare(
+            "UPDATE posts SET author_name = '{$firstName} {$lastName}' " .
+            "WHERE user_id = {$user->id}"
+        );
+
+        $statement->execute();
+        
+        $statement = container('db')->prepare(
+            "UPDATE comments SET author_name = '{$firstName} {$lastName}' " .
+            "WHERE user_id = {$user->id}"
+        );
+
+        $statement->execute();
+
         // if the password was changed , destroy the current session
         // otherwise just update the current session
         $this->authService->destroyUserSession();
