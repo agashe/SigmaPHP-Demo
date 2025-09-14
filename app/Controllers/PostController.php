@@ -107,11 +107,20 @@ class PostController extends BaseController
         if (empty($title)) {
             $error = 'Title is required.';
         }
+        elseif (strlen($title) < 50) {
+            $error = 'Title must be at least 50 characters.';
+        }
         elseif (empty($summary)) {
             $error = 'Summary is required.';
         }
+        elseif (strlen($summary) < 100) {
+            $error = 'Summary must be at least 100 characters.';
+        }
         elseif (empty($body)) {
             $error = 'Body is required.';
+        }
+        elseif (strlen(strip_tags($body)) < 500) {
+            $error = 'Body must be at least 500 characters';
         }
 
         if (!empty($error)) {
@@ -129,7 +138,7 @@ class PostController extends BaseController
         $post->summary = htmlspecialchars($summary, ENT_QUOTES, 'UTF-8');
         $post->body = $body;
         $post->user_id = $this->cookie()->get('user_id');
-        $post->comments_count = 1;
+        $post->comments_count = 0;
         $post->author_name = $this->cookie()->get('first_name') . ' ' . 
             $this->cookie()->get('last_name');
         
@@ -203,12 +212,22 @@ class PostController extends BaseController
         if (empty($title)) {
             $error = 'Title is required.';
         }
+        elseif (strlen($title) < 50) {
+            $error = 'Title must be at least 50 characters.';
+        }
         elseif (empty($summary)) {
             $error = 'Summary is required.';
+        }
+        elseif (strlen($summary) < 100) {
+            $error = 'Summary must be at least 100 characters.';
         }
         elseif (empty($body)) {
             $error = 'Body is required.';
         }
+        elseif (strlen(strip_tags($body)) < 500) {
+            $error = 'Body must be at least 500 characters';
+        }
+
 
         if (!empty($error)) {
             // add flash message
