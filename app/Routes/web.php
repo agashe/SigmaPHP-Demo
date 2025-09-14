@@ -4,6 +4,7 @@ use App\Controllers\MainController;
 use App\Controllers\PostController;
 use App\Controllers\BlogController;
 use App\Controllers\AuthController;
+use App\Controllers\CommentController;
 use App\Controllers\UserController;
 use App\Middlewares\AuthMiddleware;
 use App\Middlewares\GuestMiddleware;
@@ -182,6 +183,13 @@ return [
                 'method' => 'post',
                 'controller' => PostController::class,
                 'action' => 'delete'
+            ],
+            [
+                'name' => 'comment',
+                'path' => '/{postId}/comment',
+                'method' => 'post',
+                'controller' => CommentController::class,
+                'action' => 'submitCreate'
             ],
         ]
     ],

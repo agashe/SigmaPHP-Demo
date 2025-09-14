@@ -6,6 +6,7 @@ use SigmaPHP\Core\Controllers\BaseController;
 use SigmaPHP\Core\Http\Request;
 use SigmaPHP\Core\Http\Response;
 use App\Models\Post;
+use App\Models\Comment;
 
 class BlogController extends BaseController
 {
@@ -18,14 +19,21 @@ class BlogController extends BaseController
      * @var Post $postModel
      */
     private Post $postModel;
+
+    /**
+     * @var Comment $commentModel
+     */
+    private Comment $commentModel;
     
     /**
-     * PostsController Constructor
+     * BlogController Constructor
      * 
      * @param Post $postModel
+     * @param Comment $commentModel
      */
-    public function __construct(Post $postModel) {
+    public function __construct(Post $postModel, Comment $commentModel) {
         $this->postModel = $postModel;
+        $this->commentModel = $commentModel;
     }
 
     /**
@@ -92,13 +100,34 @@ class BlogController extends BaseController
      * @return Response
      */
     public function show(Request $request, $id)
-    {
+    {        
         $post = $this->postModel->find($id);
 
-        if (!$post) {
+        if (!$post->id) {
             return $this->render('errors.404');
         }
 
-        return $this->render('pages.blog.show', ['post' => $post]);
+        $comments = $this->commentModel
+            ->where('post_id', '=', $post->id)
+            ->all();
+
+        $type = '';
+        $message = '';
+
+        if ($this->session()->get('success')) {
+            $type = 'success';
+            $message = $this->session()->get('success');
+            $this->session()->delete('success');
+        }
+        else if ($this->session()->get('error')) {
+            $type = 'danger';
+            $message = $this->session()->get('error');
+            $this->session()->delete('error');
+        }
+
+        return $this->render(
+            'pages.blog.show', 
+            compact('post', 'comments', 'type', 'message')
+        );
     }
 }

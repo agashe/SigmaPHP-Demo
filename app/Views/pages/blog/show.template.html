@@ -14,7 +14,7 @@
                 <hr>
                 <div class="d-flex justify-content-between text-muted">
                     <small>Date: {{ $post->created_at }}</small>
-                    <small>Author: {{ 'me' }}</small>
+                    <small>Author: {{ $post->author_name }}</small>
                 </div>
             </div>
         </div>
@@ -22,57 +22,51 @@
         <!-- Comments Section -->
         <div class="card shadow-sm mb-3">
             <div class="card-header bg-white">
-                <h5 class="mb-0">Comments (<span id="commentsCount">{{ 5 }}</span>)</h5>
+                <h5 class="mb-0">Comments (<span id="commentsCount">{{ $post->comments_count }}</span>)</h5>
             </div>
             <div class="card-body" id="commentsSection">
 
                 <!-- No comments -->
-                {% if (true) %}
-                <p class="text-muted mb-0">No comments yet. Be the first to comment!</p>
+                {% if ($comments == null) %}
+                    <p class="text-muted mb-0">No comments yet. Be the first to comment!</p>
                 {% else %}
-                <!-- List of comments -->
-                <ul class="list-group list-group-flush mb-3">
-                    {% for $i in 4 %}
-                    <li class="list-group-item">
-                        <div class="fw-bold">{{ 'Anonymous' }}</div>
-                        <div>{{ 'test' }}</div>
-                        <div class="text-muted small">{{ 'hello' }}</div>
-                    </li>
-                    {% end_for %}
-                </ul>
-                <!-- Load more comments button -->
-                {% if (true) %}
-                <div class="d-grid">
-                    <button class="btn btn-outline-secondary btn-sm" id="loadMoreBtn">Load More Comments</button>
-                </div>
-                {% end_if %}
+                    <!-- List of comments -->
+                    <ul class="list-group list-group-flush mb-3">
+                        {% for $comment in $comments %}
+                            <li class="list-group-item">
+                                <div class="fw-bold">{{ $comment->author_name }}</div>
+                                <div>{{ $comment->body }}</div>
+                                <div class="text-muted small">{{ $comment->created_at }}</div>
+                            </li>
+                        {% end_for %}
+                    </ul>
                 {% end_if %}
             </div>
 
-            <!-- Register to comment (if guest) -->
-            {% if (true) %}
-            <div class="card-footer bg-white border-0">
-                <div class="alert alert-info mb-0">
-                    <a href="#" class="alert-link">Register</a> or <a href="#"
-                        class="alert-link">log in</a> to comment.
+            {% if ($isAuth == '1') %}
+                <div class="card-footer bg-white border-0">
+                    {% if ($message != '' && $type != '') %}
+                        {% include 'components.alert' %}
+                    {% end_if %}
+
+                    <form id="commentForm" action="{{ url('posts.comment', ['postId' => $post->id]) }}" method="POST">
+
+                        <div class="mb-2">
+                            <textarea name="body" class="form-control" rows="2" placeholder="Add a comment..."
+                                required></textarea>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit Comment</button>
+                        </div>
+                    </form>
+                </div>            
+            {% else %}
+                <div class="card-footer bg-white border-0">
+                    <div class="alert alert-info mb-0">
+                        <a href="{{ url('auth.register') }}" class="alert-link">Register</a> or <a href="{{ url('auth.login') }}"
+                            class="alert-link">log in</a> to comment.
+                    </div>
                 </div>
-            </div>
-            {% end_if %}
-
-            <!-- Add new comment form (if logged in) -->
-            {% if (true) %}
-            <div class="card-footer bg-white border-0">
-                <form id="commentForm" action="#" method="POST">
-
-                    <div class="mb-2">
-                        <textarea name="content" class="form-control" rows="2" placeholder="Add a comment..."
-                            required></textarea>
-                    </div>
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary btn-sm">Submit Comment</button>
-                    </div>
-                </form>
-            </div>
             {% end_if %}
         </div>
     </div>

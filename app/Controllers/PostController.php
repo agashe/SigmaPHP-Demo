@@ -20,7 +20,7 @@ class PostController extends BaseController
     private Post $postModel;
     
     /**
-     * PostsController Constructor
+     * PostController Constructor
      * 
      * @param Post $postModel
      */
@@ -98,9 +98,9 @@ class PostController extends BaseController
      */
     public function submitCreate(Request $request)
     {
-        $title   = trim((string) $request->post('title'));
+        $title = trim((string) $request->post('title'));
         $summary = trim((string) $request->post('summary'));
-        $body    = trim((string) $request->post('body'));
+        $body = trim((string) $request->post('body'));
 
         $error = '';
 
@@ -203,9 +203,9 @@ class PostController extends BaseController
      */
     public function submitUpdate(Request $request, $id)
     {
-        $title   = trim((string) $request->post('title'));
+        $title = trim((string) $request->post('title'));
         $summary = trim((string) $request->post('summary'));
-        $body    = trim((string) $request->post('body'));
+        $body = trim((string) $request->post('body'));
 
         $error = '';
 
@@ -234,7 +234,7 @@ class PostController extends BaseController
             $this->session()->set('error', $error);
 
             // redirect back to the create page
-            header('Location: ' . url('posts.create'));
+            header('Location: ' . url('posts.update', ['id' => $id]));
             exit();
         }
 
