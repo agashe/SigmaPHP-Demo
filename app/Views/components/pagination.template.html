@@ -1,17 +1,17 @@
 <nav aria-label="Page navigation example" class="mt-4">
     <ul class="pagination justify-content-center">
         <li class="page-item {% if ($page == 1) %} disabled {% end_if %}">
-            <a class="page-link" href="{{ url('blog.index', ['page' => $page - 1]) }}">Previous</a>
+            <a class="page-link" href="{{ url($url, ['page' => $page - 1]) }}">Previous</a>
         </li>
 
         {% for $i in $pagesCount %}
             <li class="page-item {% if ($i == $page) %} active {% end_if %}">
-                <a class="page-link" href="{{ url('blog.index', ['page' => $i]) }}">{{ $i }}</a>
+                <a class="page-link" href="{{ url($url, ['page' => $i]) }}">{{ $i }}</a>
             </li>
         {% end_for %}
 
         <li class="page-item {% if ($page == $pagesCount) %} disabled {% end_if %}">
-            <a class="page-link" href="{{ url('blog.index', ['page' => $page + 1]) }}">Next</a>
+            <a class="page-link" href="{{ url($url, ['page' => $page + 1]) }}">Next</a>
         </li>
     </ul>
 </nav>

@@ -44,10 +44,11 @@ class BlogController extends BaseController
         );
         
         $pagesCount = ceil($this->postModel->count() / (int) self::PER_PAGE);
-    
+        $url = 'blog.index';
+
         return $this->render(
             'pages.blog.index', 
-            compact('posts', 'page', 'pagesCount')
+            compact('posts', 'page', 'pagesCount', 'url')
         );
     }
 
@@ -75,10 +76,11 @@ class BlogController extends BaseController
         );
         
         $pagesCount = ceil(count($result) / (int) self::PER_PAGE);
-    
+        $url = 'blog.index';
+
         return $this->render(
             'pages.blog.index', 
-            compact('posts', 'page', 'pagesCount', 'keyword')
+            compact('posts', 'page', 'pagesCount', 'keyword', 'url')
         );
     }
 

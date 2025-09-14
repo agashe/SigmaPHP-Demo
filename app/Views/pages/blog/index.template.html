@@ -1,6 +1,6 @@
 {% extend 'layout/base' %}
 
-{% block 'title' %}Home{% end_block %}
+{% block 'title' %}Blog{% end_block %}
 
 {% block 'content' %}
 
@@ -11,8 +11,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{ $post->title }}</h5>
                 <p>{{ $post->summary }}</p>
-                <p><small class="text-muted">Date: {{ $post->created_at }} | Comments: 15 | Author:
-                        Alice Wonderland</small></p>
+                <p><small class="text-muted">Date: {{ $post->created_at }} | Comments: {{ $post->comments_count }} | Author: {{$post->author_name}}</small></p>
                 <a href="{{ url('blog.show', ['id' => $post->id]) }}" class="btn btn-primary btn-sm">
                     <i class="bi bi-arrow-right me-2"></i>Read More
                 </a>

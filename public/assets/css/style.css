@@ -22,3 +22,7 @@
     text-overflow: ellipsis;
     display: -webkit-box;
 }
+
+.ck-editor__editable {
+    min-height: 300px;
+}

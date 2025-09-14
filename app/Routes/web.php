@@ -143,7 +143,45 @@ return [
                 'path' => '/{page?}',
                 'method' => 'get',
                 'controller' => PostController::class,
-                'action' => 'index'
+                'action' => 'index',
+                'validation' => [
+                    'page' => '[0-9]+'
+                ]
+            ],
+            [
+                'name' => 'create',
+                'path' => '/create',
+                'method' => 'get',
+                'controller' => PostController::class,
+                'action' => 'create'
+            ],
+            [
+                'name' => 'create.submit',
+                'path' => '/create',
+                'method' => 'post',
+                'controller' => PostController::class,
+                'action' => 'submitCreate'
+            ],
+            [
+                'name' => 'update',
+                'path' => '/{id}/edit',
+                'method' => 'get',
+                'controller' => PostController::class,
+                'action' => 'update'
+            ],
+            [
+                'name' => 'update.submit',
+                'path' => '/{id}/edit',
+                'method' => 'post',
+                'controller' => PostController::class,
+                'action' => 'submitUpdate'
+            ],
+            [
+                'name' => 'delete',
+                'path' => '/{id}/delete',
+                'method' => 'post',
+                'controller' => PostController::class,
+                'action' => 'delete'
             ],
         ]
     ],
