@@ -1,6 +1,6 @@
 # SigmaPHP-Demo
 
-Welcome to the SigmaPHP Demo Application repository! This project serves as a comprehensive showcase designed to help you explore and understand all the features and capabilities of the SigmaPHP framework. Whether you're new to SigmaPHP or looking to dive deeper into its functionalities, this demo provides practical examples and use cases for various aspects of the framework.
+Welcome to the SigmaPHP Demo Application ! This project serves as a comprehensive showcase designed to help you explore and understand all the features and capabilities of the SigmaPHP framework. Whether you're new to SigmaPHP or looking to dive deeper into its functionalities, this demo provides practical examples and use cases for various aspects of the framework.
 
 ## Installation
 
@@ -17,10 +17,29 @@ git clone https://github.com/agashe/SigmaPHP-Demo.git
 ```bash
 cd SigmaPHP-Demo/
 ```
+
 3- Install Composer Dependencies:
 
 ```bash
 composer install
+```
+
+3- Copy the `.env` file:
+
+```bash
+cp .env.example .env
+```
+
+4- Configure the database:
+
+```bash
+Edit .env file , and ad your database credentials:
+
+DATABASE_HOST="localhost"
+DATABASE_USER="root"
+DATABASE_PASS="root"
+DATABASE_NAME="test"
+DATABASE_PORT="3306"
 ```
 
 ## Usage
