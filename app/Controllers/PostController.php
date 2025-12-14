@@ -64,27 +64,12 @@ class PostController extends BaseController
     public function create(Request $request)
     {
         $action = 'Create';
-        $type = '';
-        $message = '';
         $title = '';
         $summary = '';
         $body = '';
 
-        if ($this->session()->get('success')) {
-            $type = 'success';
-            $message = $this->session()->get('success');
-            $this->session()->delete('success');
-        }
-        else if ($this->session()->get('error')) {
-            $type = 'danger';
-            $message = $this->session()->get('error');
-            $this->session()->delete('error');
-        }
-
         return $this->render('pages.posts.form', compact(
             'action',
-            'type',
-            'message',
             'title',
             'summary',
             'body'
@@ -124,12 +109,10 @@ class PostController extends BaseController
         }
 
         if (!empty($error)) {
-            // add flash message
-            $this->session()->set('error', $error);
-
-            // redirect back to the create page
-            header('Location: ' . url('posts.create'));
-            exit();
+            $this->flash('error', $error);
+            $this->saveOldValues();
+            
+            return $this->back();
         }
 
         $post = new Post();
@@ -144,9 +127,8 @@ class PostController extends BaseController
         
         $post->save();
 
-        // redirect to posts index
-        header('Location: ' . url('posts.index'));
-        exit();
+        $this->flash('success', 'Your post was created successfully');
+        return $this->route('posts.index');
     }
 
     /**
@@ -166,28 +148,13 @@ class PostController extends BaseController
 
         $id = $post->id;
         $action = 'Edit';
-        $type = '';
-        $message = '';
         $title = $post->title;
         $summary = $post->summary;
         $body = $post->body;
 
-        if ($this->session()->get('success')) {
-            $type = 'success';
-            $message = $this->session()->get('success');
-            $this->session()->delete('success');
-        }
-        else if ($this->session()->get('error')) {
-            $type = 'danger';
-            $message = $this->session()->get('error');
-            $this->session()->delete('error');
-        }
-
         return $this->render('pages.posts.form', compact(
             'id',
             'action',
-            'type',
-            'message',
             'title',
             'summary',
             'body'
@@ -230,12 +197,10 @@ class PostController extends BaseController
 
 
         if (!empty($error)) {
-            // add flash message
-            $this->session()->set('error', $error);
-
-            // redirect back to the create page
-            header('Location: ' . url('posts.update', ['id' => $id]));
-            exit();
+            $this->flash('error', $error);
+            $this->saveOldValues();
+            
+            return $this->back();
         }
 
         $post = $this->postModel->find($id);
@@ -246,9 +211,8 @@ class PostController extends BaseController
         
         $post->save();
 
-        // redirect to posts index
-        header('Location: ' . url('posts.index'));
-        exit();
+        $this->flash('success', 'Your post was updated successfully');
+        return $this->route('posts.index');
     }
 
     /**
@@ -267,9 +231,8 @@ class PostController extends BaseController
         }
 
         $post->delete();
-
-        // redirect to posts index
-        header('Location: ' . url('posts.index'));
-        exit();
+        
+        $this->flash('success', 'Your post was deleted successfully');
+        return $this->route('posts.index');
     }
 }

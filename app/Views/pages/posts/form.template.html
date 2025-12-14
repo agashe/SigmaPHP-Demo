@@ -10,24 +10,24 @@
             <div class="card-body">
                 <h2 class="card-title text-center mb-4 text-primary fw-bold">{{ $action }} Post</h2>
 
-                {% if ($message != '' && $type != '') %}
+                {% for $message in $flashMessages %}
                     {% include 'components.alert' %}
-                {% end_if %}
+                {% end_for %}
 
                 <form action="/posts/{% if ($action == 'Create') %}create{% else %}{{ $id }}/edit{% end_if %}" method="POST">
                     <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
-                        <input type="text" class="form-control" id="title" name="title" value="{{ $title }}" required>
+                        <input type="text" class="form-control" id="title" name="title" value="{{ $oldValues['title'] ?? $title }}" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="summary" class="form-label">Summary</label>
-                        <input type="text" class="form-control" id="summary" name="summary" value="{{ $summary }}" required>
+                        <input type="text" class="form-control" id="summary" name="summary" value="{{ $oldValues['summary'] ?? $summary }}" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="body" class="form-label">Body</label>
-                        <textarea class="form-control" id="body" name="body" rows="8">{{ $body }}</textarea>
+                        <textarea class="form-control" id="body" name="body" rows="8">{{ $oldValues['body'] ?? $body }}</textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary">
