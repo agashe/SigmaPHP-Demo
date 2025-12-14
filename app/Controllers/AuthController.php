@@ -38,21 +38,7 @@ class AuthController extends BaseController
      */
     public function login(Request $request)
     {
-        $type = '';
-        $message = '';
-
-        if ($this->session()->get('success')) {
-            $type = 'success';
-            $message = $this->session()->get('success');
-            $this->session()->delete('success');
-        }
-        else if ($this->session()->get('error')) {
-            $type = 'danger';
-            $message = $this->session()->get('error');
-            $this->session()->delete('error');
-        }
-        
-        return $this->render('pages.auth.login', compact('type', 'message'));
+         return $this->render('pages.auth.login');
     }
 
     /**
@@ -79,9 +65,10 @@ class AuthController extends BaseController
         }
 
         if (!empty($error)) {
-            $this->session()->set('error', $error);
-            header('Location: ' . url('auth.login'));
-            exit();
+            $this->flash('error', $error);
+            $this->saveOldValues();
+            
+            return $this->back();
         }
 
         $user = $this->userModel->where('email', 'like', "%$email%")->first();
@@ -96,14 +83,13 @@ class AuthController extends BaseController
                 $rememberMe == 'on' ? $oneWeekInterval : $oneDayInterval
             );
 
-            header('Location: ' . url('home'));
-            exit();
+            $this->route('home');
         }
 
-        // Invalid credentials.
-        $this->session()->set('error', 'Invalid username or password.');
-        header('Location: ' . url('auth.login'));
-        exit();
+        $this->flash('error', 'Invalid username or password.');
+        $this->saveOldValues();
+        
+        return $this->back();
     }
     
     /**
@@ -113,21 +99,7 @@ class AuthController extends BaseController
      */
     public function register(Request $request)
     {
-        $type = '';
-        $message = '';
-
-        if ($this->session()->get('success')) {
-            $type = 'success';
-            $message = $this->session()->get('success');
-            $this->session()->delete('success');
-        }
-        else if ($this->session()->get('error')) {
-            $type = 'danger';
-            $message = $this->session()->get('error');
-            $this->session()->delete('error');
-        }
-        
-        return $this->render('pages.auth.register', compact('type', 'message'));
+        return $this->render('pages.auth.register');
     }
 
     /**
@@ -168,12 +140,10 @@ class AuthController extends BaseController
         }
 
         if (!empty($error)) {
-            // add flash message
-            $this->session()->set('error', $error);
+            $this->flash('error', $error);
+            $this->saveOldValues();
             
-            // redirect back
-            header('Location: ' . url('auth.register'));
-            exit();
+            return $this->back();
         }
 
         $newUser = new User();
@@ -191,8 +161,6 @@ class AuthController extends BaseController
         // create new user session (valid for one day !)
         $this->authService->createUserSession($newUser, 3600);
 
-        // redirect back
-        header('Location: ' . url('home'));
-        exit();
+        $this->route('home');
     }
 }

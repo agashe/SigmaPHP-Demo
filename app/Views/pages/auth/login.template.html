@@ -10,14 +10,14 @@
             <div class="card-body">
                 <h2 class="card-title text-center mb-4 text-primary fw-bold">Login</h2>
 
-                {% if ($message != '' && $type != '') %}
+                {% for $message in $flashMessages %}
                     {% include 'components.alert' %}
-                {% end_if %}
+                {% end_for %}
 
                 <form action="/auth/login" method="POST">
                     <div class="mb-3">
-                        <label for="email" class="form-label">Username</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required value="{{ $oldValues['email'] ?? '' }}">
                     </div>
 
                     <div class="mb-3">

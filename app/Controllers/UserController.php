@@ -10,7 +10,6 @@ use App\Services\AuthService;
 
 class UserController extends BaseController
 {
-
     /**
      * @var User $userModel
      */
@@ -38,27 +37,10 @@ class UserController extends BaseController
      * @return Response
      */
     public function show(Request $request)
-    {
-        $type = '';
-        $message = '';
-
-        if ($this->session()->get('success')) {
-            $type = 'success';
-            $message = $this->session()->get('success');
-            $this->session()->delete('success');
-        }
-        else if ($this->session()->get('error')) {
-            $type = 'danger';
-            $message = $this->session()->get('error');
-            $this->session()->delete('error');
-        }
-        
+    {   
         $user = $this->userModel->find($this->cookie()->get('user_id'));
 
-        return $this->render(
-            'pages.profile', 
-            compact('type', 'message', 'user')
-        );
+        return $this->render('pages.profile', compact('user'));
     }
 
     /**
@@ -103,12 +85,10 @@ class UserController extends BaseController
         }
 
         if (!empty($error)) {
-            // add flash message
-            $this->session()->set('error', $error);
+            $this->flash('error', $error);
+            $this->saveOldValues();
             
-            // redirect back
-            header('Location: ' . url('user.profile'));
-            exit();
+            return $this->back();
         }
 
         $user->first_name = htmlspecialchars($firstName, ENT_QUOTES, 'UTF-8');
@@ -141,21 +121,16 @@ class UserController extends BaseController
         $this->authService->destroyUserSession();
 
         if (!empty($newPassword)) {
-            // redirect to login
-            header('Location: ' . url('auth.login'));
-            exit();
+            $this->route('auth.login');
         }
         
         // create new session , with the updated data
         $this->authService->createUserSession($user);
 
-        // set a success flash message
-        $this->session()->set(
-            'success', 'Your profile has been updated successfully!');
-
-        // redirect back
-        header('Location: ' . url('user.profile'));
-        exit();
+        $this->flash('success', 'Your profile has been updated successfully!');
+        $this->saveOldValues();
+        
+        return $this->route('user.profile');
     }
 
     /**
@@ -167,8 +142,6 @@ class UserController extends BaseController
     {
         $this->authService->destroyUserSession();
 
-        // redirect back
-        header('Location: ' . url('home'));
-        exit();
+        return $this->route('home');
     }
 }
