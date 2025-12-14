@@ -40,21 +40,7 @@ class MainController extends BaseController
      */
     public function contact(Request $request)
     {
-        $type = '';
-        $message = '';
-
-        if ($this->session()->get('success')) {
-            $type = 'success';
-            $message = $this->session()->get('success');
-            $this->session()->delete('success');
-        }
-        else if ($this->session()->get('error')) {
-            $type = 'danger';
-            $message = $this->session()->get('error');
-            $this->session()->delete('error');
-        }
-        
-        return $this->render('pages.contact', compact('type', 'message'));
+        return $this->render('pages.contact');
     }
 
     /**
@@ -84,12 +70,10 @@ class MainController extends BaseController
         }
 
         if (!empty($error)) {
-            // add flash message
-            $this->session()->set('error', $error);
+            $this->flash('error', $error);
+            $this->saveOldValues();
             
-            // redirect back
-            header('Location: ' . url('contact'));
-            exit();
+            return $this->back();
         }
 
         $newMessage = new Message();
@@ -100,11 +84,7 @@ class MainController extends BaseController
 
         $newMessage->save();
 
-        // add flash message
-        $this->session()->set('success', 'Your message were sent successfully');
-        
-        // redirect back
-        header('Location: ' . url('contact'));
-        exit();
+        $this->flash('success', 'Your message were sent successfully');
+        return $this->route('contact');
     }
 }
