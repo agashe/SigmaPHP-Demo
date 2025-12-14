@@ -41,26 +41,24 @@ return [
     [
         'group' => 'blog',
         'prefix' => '/blog',
+        'controller' => BlogController::class,
         'routes' => [
             [
                 'name' => 'index',
                 'path' => '/{page?}',
                 'method' => 'get',
-                'controller' => BlogController::class,
                 'action' => 'index'
             ],
             [
                 'name' => 'search',
                 'path' => 'search/{keyword}/{page?}',
                 'method' => 'get',
-                'controller' => BlogController::class,
                 'action' => 'search'
             ],
             [
                 'name' => 'show',
                 'path' => '/s/{id}',
                 'method' => 'get',
-                'controller' => BlogController::class,
                 'action' => 'show'
             ],
         ]
@@ -68,6 +66,7 @@ return [
     [
         'group' => 'auth',
         'prefix' => '/auth',
+        'controller' => AuthController::class,
         'middlewares' => [
             [GuestMiddleware::class, 'handle']
         ],
@@ -76,28 +75,24 @@ return [
                 'name' => 'login',
                 'path' => '/login',
                 'method' => 'get',
-                'controller' => AuthController::class,
                 'action' => 'login',
             ],
             [
                 'name' => 'login.submit',
                 'path' => '/login',
                 'method' => 'post',
-                'controller' => AuthController::class,
                 'action' => 'submitLogin',
             ],
             [
                 'name' => 'register',
                 'path' => '/register',
                 'method' => 'get',
-                'controller' => AuthController::class,
                 'action' => 'register',
             ],
             [
                 'name' => 'register.submit',
                 'path' => '/register',
                 'method' => 'post',
-                'controller' => AuthController::class,
                 'action' => 'submitRegister',
             ],
         ]
@@ -105,6 +100,7 @@ return [
     [
         'group' => 'user',
         'prefix' => '/user',
+        'controller' => UserController::class,
         'middlewares' => [
             [AuthMiddleware::class, 'handle']
         ],
@@ -113,21 +109,18 @@ return [
                 'name' => 'profile',
                 'path' => '/profile',
                 'method' => 'get',
-                'controller' => UserController::class,
                 'action' => 'show',
             ],
             [
                 'name' => 'profile.update',
                 'path' => '/profile',
                 'method' => 'post',
-                'controller' => UserController::class,
                 'action' => 'update',
             ],
             [
                 'name' => 'logout',
                 'path' => '/logout',
                 'method' => 'get',
-                'controller' => UserController::class,
                 'action' => 'logout',
             ],
         ]
@@ -135,6 +128,7 @@ return [
     [
         'group' => 'posts',
         'prefix' => '/posts',
+        'controller' => PostController::class,
         'middlewares' => [
             [AuthMiddleware::class, 'handle']
         ],
@@ -143,7 +137,6 @@ return [
                 'name' => 'index',
                 'path' => '/{page?}',
                 'method' => 'get',
-                'controller' => PostController::class,
                 'action' => 'index',
                 'validation' => [
                     'page' => '[0-9]+'
@@ -153,35 +146,30 @@ return [
                 'name' => 'create',
                 'path' => '/create',
                 'method' => 'get',
-                'controller' => PostController::class,
                 'action' => 'create'
             ],
             [
                 'name' => 'create.submit',
                 'path' => '/create',
                 'method' => 'post',
-                'controller' => PostController::class,
                 'action' => 'submitCreate'
             ],
             [
                 'name' => 'update',
                 'path' => '/{id}/edit',
                 'method' => 'get',
-                'controller' => PostController::class,
                 'action' => 'update'
             ],
             [
                 'name' => 'update.submit',
                 'path' => '/{id}/edit',
                 'method' => 'post',
-                'controller' => PostController::class,
                 'action' => 'submitUpdate'
             ],
             [
                 'name' => 'delete',
                 'path' => '/{id}/delete',
                 'method' => 'post',
-                'controller' => PostController::class,
                 'action' => 'delete'
             ],
             [
