@@ -107,20 +107,20 @@ class PostController extends BaseController
         if (empty($title)) {
             $error = 'Title is required.';
         }
-        elseif (strlen($title) < 50) {
-            $error = 'Title must be at least 50 characters.';
+        elseif (strlen($title) < 25) {
+            $error = 'Title must be at least 25 characters.';
         }
         elseif (empty($summary)) {
             $error = 'Summary is required.';
         }
-        elseif (strlen($summary) < 100) {
-            $error = 'Summary must be at least 100 characters.';
+        elseif (strlen($summary) < 50) {
+            $error = 'Summary must be at least 50 characters.';
         }
         elseif (empty($body)) {
             $error = 'Body is required.';
         }
-        elseif (strlen(strip_tags($body)) < 500) {
-            $error = 'Body must be at least 500 characters';
+        elseif (strlen(strip_tags($body)) < 100) {
+            $error = 'Body must be at least 100 characters';
         }
 
         if (!empty($error)) {
@@ -212,20 +212,20 @@ class PostController extends BaseController
         if (empty($title)) {
             $error = 'Title is required.';
         }
-        elseif (strlen($title) < 50) {
-            $error = 'Title must be at least 50 characters.';
+        elseif (strlen($title) < 25) {
+            $error = 'Title must be at least 25 characters.';
         }
         elseif (empty($summary)) {
             $error = 'Summary is required.';
         }
-        elseif (strlen($summary) < 100) {
-            $error = 'Summary must be at least 100 characters.';
+        elseif (strlen($summary) < 50) {
+            $error = 'Summary must be at least 50 characters.';
         }
         elseif (empty($body)) {
             $error = 'Body is required.';
         }
-        elseif (strlen(strip_tags($body)) < 500) {
-            $error = 'Body must be at least 500 characters';
+        elseif (strlen(strip_tags($body)) < 100) {
+            $error = 'Body must be at least 100 characters';
         }
 
 

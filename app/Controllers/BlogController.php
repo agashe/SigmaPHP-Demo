@@ -111,23 +111,9 @@ class BlogController extends BaseController
             ->where('post_id', '=', $post->id)
             ->all();
 
-        $type = '';
-        $message = '';
-
-        if ($this->session()->get('success')) {
-            $type = 'success';
-            $message = $this->session()->get('success');
-            $this->session()->delete('success');
-        }
-        else if ($this->session()->get('error')) {
-            $type = 'danger';
-            $message = $this->session()->get('error');
-            $this->session()->delete('error');
-        }
-
         return $this->render(
             'pages.blog.show', 
-            compact('post', 'comments', 'type', 'message')
+            compact('post', 'comments')
         );
     }
 }

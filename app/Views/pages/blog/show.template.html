@@ -45,9 +45,9 @@
 
             {% if ($isAuth == '1') %}
                 <div class="card-footer bg-white border-0">
-                    {% if ($message != '' && $type != '') %}
+                    {% for $message in $flashMessages %}
                         {% include 'components.alert' %}
-                    {% end_if %}
+                    {% end_for %}
 
                     <form id="commentForm" action="{{ url('posts.comment', ['postId' => $post->id]) }}" method="POST">
 
