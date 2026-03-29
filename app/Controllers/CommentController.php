@@ -43,7 +43,7 @@ class CommentController extends BaseController
         $post = $this->postModel->find($postId);
 
         if (!$post) {
-            return $this->render('errors.404');
+            return $this->error(404);
         }
 
         $body = trim((string) $request->post('body'));
@@ -58,12 +58,10 @@ class CommentController extends BaseController
         }
 
         if (!empty($error)) {
-            // add flash message
-            $this->session()->set('error', $error);
-
-            // redirect back to show post
-            header('Location: ' . url('blog.show', ['id' => $postId]));
-            exit();
+            $this->flash('error', $error);
+            $this->saveOldValues();
+            
+            return $this->back();
         }
 
         $comment = new Comment();
@@ -81,10 +79,9 @@ class CommentController extends BaseController
         $post->save();
 
         // add flash message
-        $this->session()->set('success', 'Comment was added successfully');
+        $this->flash('success', 'Comment was added successfully');
  
         // redirect to show post
-        header('Location: ' . url('blog.show', ['id' => $postId]));
-        exit();
+        return $this->route('blog.show', ['id' => $postId]);
     }
 }

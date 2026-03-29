@@ -143,7 +143,7 @@ class PostController extends BaseController
         $post = $this->postModel->find($id);
 
         if (!$post) {
-            return $this->render('errors.404');
+            return $this->error(404);
         }
 
         $id = $post->id;
@@ -227,7 +227,7 @@ class PostController extends BaseController
         $post = $this->postModel->find($id);
 
         if (!$post) {
-            return $this->render('errors.404');
+            return $this->error(404);
         }
 
         $post->delete();

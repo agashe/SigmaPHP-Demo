@@ -104,7 +104,7 @@ class BlogController extends BaseController
         $post = $this->postModel->find($id);
 
         if (!$post->id) {
-            return $this->render('errors.404');
+            return $this->error(404);
         }
 
         $comments = $this->commentModel
