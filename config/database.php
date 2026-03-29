@@ -7,17 +7,17 @@ return [
     /**
      * Default path for migration files.
      */
-    'path_to_migrations' => env('PATH_TO_MIGRATIONS', '/database/migrations'),
+    'path_to_migrations' => env('PATH_TO_MIGRATIONS', 'database/migrations'),
 
     /**
      * Default path for seeders.
      */
-    'path_to_seeders' => env('PATH_TO_SEEDERS', '/database/seeders'),
+    'path_to_seeders' => env('PATH_TO_SEEDERS', 'database/seeders'),
 
     /**
      * Default path for migrations files.
      */
-    'path_to_models' => env('PATH_TO_MODELS', '/app/Models'),
+    'path_to_models' => env('PATH_TO_MODELS', 'app/Models'),
     
     /**
      * Default name for migrations history table.

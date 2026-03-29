@@ -7,7 +7,7 @@ return [
     /**
      * Application name.
      */
-    'name' => env('APP_NAME', 'SigmaPHP - WebApp'),
+    'name' => env('APP_NAME', 'SigmaPHP - Demo'),
 
     /**
      * Application url. (can be used in routes or http calls)
@@ -18,6 +18,16 @@ return [
      * Application environment (production , dev ...etc).
      */
     'env' => env('APP_ENV', 'develop'),
+
+    /**
+     * Application port.
+     */
+    'port' => env('APP_PORT', 8888),
+
+    /**
+     * Application timezone.
+     */
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
 
     /**
      * Controller files path.
@@ -37,10 +47,37 @@ return [
     /**
      * Cache files path.
      */
-    'cache_path' => '', // env('CACHE_PATH', 'storage/cache'),
+    'cache_path' => env('CACHE_PATH', 'storage/cache'),
 
     /**
      * Uploaded files path.
      */
     'upload_path' => env('UPLOADS_PATH', 'storage/uploads'),
+
+    /**
+     * HTTP method override.
+     */
+    'allow_http_method_override' => true,
+
+    /**
+     * Static assets route's path.
+     */
+    'static_assets_route' => env('STATIC_ASSETS_ROUTE', 'static/'),
+
+    /**
+     * App base path.
+     *
+     * Do not confuse this option with APP_URL. The APP_URL value defines the
+     * full application URL (e.g., https://example.com), whereas this option
+     * specifies the base path when the application is served from a
+     * sub-directory, such as:
+     *     http://localhost/apps/calculator/public
+     *
+     * In this example, the application’s base path is:
+     *     /apps/calculator/public
+     *
+     * Provide this value in the options below only when your application is
+     * running from a sub-directory. Otherwise, you can ignore this option !
+     */
+    'base_path' => env('BASE_PATH', ''),
 ];
