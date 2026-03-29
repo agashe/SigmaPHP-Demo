@@ -2,10 +2,12 @@
 
 namespace App\Middlewares;
 
+use SigmaPHP\Core\Router\BaseMiddleware;
+
 /**
  * Guest Middleware Class
  */
-class GuestMiddleware
+class GuestMiddleware extends BaseMiddleware
 {
     /**
      * Handle the incoming request.
@@ -14,9 +16,8 @@ class GuestMiddleware
      */
     public function handle()
     {
-        if (isset($_COOKIE['is_auth']) && $_COOKIE['is_auth'] == '1') {
-            header('Location: ' . url('home'));
-            exit();
+        if ($this->cookie()->has('is_auth')) {
+            return $this->route('home');
         }
     }
 }

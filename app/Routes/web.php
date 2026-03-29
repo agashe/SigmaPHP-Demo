@@ -68,7 +68,7 @@ return [
         'prefix' => '/auth',
         'controller' => AuthController::class,
         'middlewares' => [
-            [GuestMiddleware::class, 'handle']
+            GuestMiddleware::class
         ],
         'routes' => [
             [
@@ -102,7 +102,7 @@ return [
         'prefix' => '/user',
         'controller' => UserController::class,
         'middlewares' => [
-            [AuthMiddleware::class, 'handle']
+            AuthMiddleware::class
         ],
         'routes' => [
             [
@@ -130,7 +130,7 @@ return [
         'prefix' => '/posts',
         'controller' => PostController::class,
         'middlewares' => [
-            [AuthMiddleware::class, 'handle']
+            AuthMiddleware::class
         ],
         'routes' => [
             [
