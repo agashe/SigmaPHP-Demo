@@ -26,3 +26,42 @@
 .ck-editor__editable {
     min-height: 300px;
 }
+
+.btn-primary {
+  background-color: #ffa500 !important;
+  border-color: #ffa500 !important;
+}
+
+.btn-outline-primary {
+    border-color: #ffa500 !important;
+    color: #ffa500 !important;
+}
+
+.btn-primary:hover, .btn-outline-primary:hover {
+    background-color: #E39300 !important;
+    border-color: #E39300 !important;
+}
+
+.btn-outline-primary {
+  border-color: #ffa500 !important;
+  color: #ffa500 !important;
+}
+
+.pagination .page-link {
+    color: #ffa500 !important;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #ffa500 !important;
+    border-color: #ffa500 !important;
+    color: #fff !important;
+}
+
+.pagination .page-item.active .page-link:hover {
+    background-color: #E39300 !important;
+    border-color: #ffa500 !important;
+}
+
+.text-primary {
+  color: #ffa500 !important;
+}
