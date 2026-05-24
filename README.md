@@ -9,7 +9,7 @@ Follow these simple steps to get the SigmaPHP Demo Application up and running on
 1- Clone the Repository:
 
 ```bash
-git clone https://github.com/agashe/SigmaPHP-Demo.git
+git clone https://github.com/sigmaphp/SigmaPHP-Demo.git
 ```
 
 2- Navigate into the Project Directory:

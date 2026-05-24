@@ -20,8 +20,8 @@ class AppServiceProvider implements ServiceProviderInterface
     public function boot(Container $container)
     {
         shareTemplateVariable([
-            'githubLink' => 'https://github.com/agashe/SigmaPHP',
-            'docsLink' => 'https://www.sigmaphp.com/docs',
+            'githubLink' => 'https://github.com/sigmaphp/SigmaPHP',
+            'docsLink' => 'https://www.sigmaphp.com/docs/0.1.x/introduction',
             'isAuth' => isset($_COOKIE['is_auth']) ? '1' : '0'
         ]);
     }
