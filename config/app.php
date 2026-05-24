@@ -28,7 +28,6 @@ return [
      * Application timezone.
      */
     'timezone' => env('APP_TIMEZONE', 'UTC'),
-
     /**
      * Controller files path.
      */

@@ -6,10 +6,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/"
-        },
-        "files": [
-            "vendor/agashe/sigmaphp-core/src/Helpers/helper_methods.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
@@ -17,7 +14,7 @@
         }
     },
     "require": {
-        "agashe/sigmaphp-core": "*"
+        "sigmaphp/sigmaphp-core": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5"
