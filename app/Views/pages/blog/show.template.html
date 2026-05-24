@@ -7,7 +7,7 @@
 <div class="row justify-content-center">
     <div class="col-md-8">
         <!-- Post Card -->
-        <div class="card shadow-sm mb-4">
+        <div class="card shadow-sm border-light mb-4" data-bs-theme="dark">
             <div class="card-body">
                 <h2 class="card-title">{{ $post->title }}</h2>
                 <p class="card-text">{{ $post->body }}</p>
@@ -20,7 +20,7 @@
         </div>
 
         <!-- Comments Section -->
-        <div class="card shadow-sm mb-3">
+        <div class="card shadow-sm border-light mb-3" data-bs-theme="dark">
             <div class="card-header bg-white">
                 <h5 class="mb-0">Comments (<span id="commentsCount">{{ $post->comments_count }}</span>)</h5>
             </div>

@@ -7,7 +7,7 @@
 <div class="row g-4">
     {% for $post in $posts %}
     <div class="col-md-12 col-lg-12">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm border-light" data-bs-theme="dark">
             <div class="card-body">
                 <h5 class="card-title">{{ $post->title }}</h5>
                 <p>{{ $post->summary }}</p>

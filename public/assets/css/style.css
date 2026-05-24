@@ -25,6 +25,7 @@
 
 .ck-editor__editable {
     min-height: 300px;
+    color: #000 !important;
 }
 
 .btn-primary {
